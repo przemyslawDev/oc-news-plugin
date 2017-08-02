@@ -1,0 +1,38 @@
+<?= Form::open(['class'=>'layout']) ?>
+
+<div class="layout-row">
+    <?= $this->formRender() ?>
+</div>
+
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+
+        <?php if ($this->user->hasAccess('przemyslawdev.news.access_edit_categories')): ?>
+        <button
+                type="button"
+                data-request="onSave"
+                data-request-data="close:true"
+                data-hotkey="ctrl+enter, cmd+enter"
+                data-load-indicator="Creating Category..."
+                class="btn btn-default">
+            Create and Close
+        </button>
+        <?php endif ?>
+
+        <?php if ($this->user->hasAccess('przemyslawdev.news.access_delete_categories')): ?>
+        <button
+                type="button"
+                class="oc-icon-trash-o btn-icon danger pull-right"
+                data-request="onDelete"
+                data-load-indicator="Deleting Category..."
+                data-request-confirm="Do you really want to delete this category?">
+        </button>
+        <?php endif ?>
+
+        <span class="btn-text">
+                or <a href="<?= Backend::url('przemyslawdev/news/category') ?>">Cancel</a>
+            </span>
+    </div>
+</div>
+
+<?= Form::close() ?>

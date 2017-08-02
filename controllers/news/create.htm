@@ -1,0 +1,40 @@
+<!-- Primary content -->
+<?php Block::put('form-contents') ?>
+
+
+<div class="layout-row">
+    <?= $this->formRenderOutsideFields() ?>
+    <?= $this->formRenderPrimaryTabs() ?>
+</div>
+
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+        <button
+                type="button"
+                data-request="onSave"
+                data-request-data="close:true"
+                data-hotkey="ctrl+enter, cmd+enter"
+                data-load-indicator="Creating News..."
+                class="btn btn-default">
+            Create and Close
+        </button>
+        <span class="btn-text">
+                    or <a href="<?= Backend::url('przemyslawdev/news/news') ?>">Cancel</a>
+                </span>
+    </div>
+</div>
+
+
+<?php Block::endPut() ?>
+
+<!-- Complimentary sidebar -->
+<?php Block::put('form-sidebar') ?>
+<?= $this->formRenderSecondaryTabs() ?>
+<?php Block::endPut() ?>
+
+<!-- Layout execution -->
+<?php Block::put('body') ?>
+<?= Form::open(['class'=>'layout stretch']) ?>
+<?= $this->makeLayout('form-with-sidebar') ?>
+<?= Form::close() ?>
+<?php Block::endPut() ?>

@@ -1,0 +1,54 @@
+<!-- Primary content -->
+<?php Block::put('form-contents') ?>
+
+
+<div class="layout-row">
+    <?= $this->formRenderOutsideFields() ?>
+    <?= $this->formRenderPrimaryTabs() ?>
+</div>
+
+<div class="form-buttons">
+    <div class="loading-indicator-container">
+
+        <?php if ($this->user->hasAccess('przemyslawdev.news.access_edit_news')): ?>
+        <button
+                type="button"
+                data-request="onSave"
+                data-request-data="close:true"
+                data-hotkey="ctrl+enter, cmd+enter"
+                data-load-indicator="Saving News..."
+                class="btn btn-default">
+            Save and Close
+        </button>
+        <?php endif ?>
+
+        <?php if ($this->user->hasAccess('przemyslawdev.news.access_delete_news')): ?>
+        <button
+                type="button"
+                class="oc-icon-trash-o btn-icon danger pull-right"
+                data-request="onDelete"
+                data-load-indicator="Deleting News..."
+                data-request-confirm="Do you really want to delete this category?">
+        </button>
+        <?php endif ?>
+
+        <span class="btn-text">
+                    or <a href="<?= Backend::url('przemyslawdev/news/news') ?>">Cancel</a>
+            </span>
+    </div>
+</div>
+
+
+<?php Block::endPut() ?>
+
+<!-- Complimentary sidebar -->
+<?php Block::put('form-sidebar') ?>
+<?= $this->formRenderSecondaryTabs() ?>
+<?php Block::endPut() ?>
+
+<!-- Layout execution -->
+<?php Block::put('body') ?>
+<?= Form::open(['class'=>'layout stretch']) ?>
+<?= $this->makeLayout('form-with-sidebar') ?>
+<?= Form::close() ?>
+<?php Block::endPut() ?>

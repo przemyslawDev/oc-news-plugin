@@ -1,0 +1,14 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Tags
+list: ~/plugins/przemyslawdev/news/models/tag/list_columns.yaml
+modelClass: PrzemyslawDev\News\Models\Tag
+recordUrl: przemyslawdev/news/tag/update/:id
+
+recordsPerPage: 15
+showSetup: true
+
+toolbar:
+  buttons: list_toolbar

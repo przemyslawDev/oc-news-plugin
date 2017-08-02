@@ -1,0 +1,14 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: Tags
+form: $/przemyslawdev/news/models/tag/fields.yaml
+modelClass: PrzemyslawDev\News\Models\Tag
+
+update:
+    title: Edit Tag
+    redirect: rzemyslawdev/news/tag/update/:id
+    redirectClose: przemyslawdev/news/tag
+    flashSave: Tag updated successfully!
+    flashDelete: Tag has been deleted.

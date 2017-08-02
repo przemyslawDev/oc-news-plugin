@@ -1,0 +1,95 @@
+<div class="col-md-6">
+    <h3>All in categories</h3>
+    <canvas id="pieChart" height="260"></canvas>
+</div>
+<div class="col-md-6">
+    <div class="control-status-list">
+        <h3>Top 10 News</h3>
+        <ul>
+            <?php
+                $newsTopAll = Przemyslawdev\News\Models\News::take(10)->orderBy('views', 'desc')->get();
+            foreach($newsTopAll as $newsPost)
+            {
+            echo "
+            <li><span class='status-text'>" . $newsPost->title . "</span><span class='status-label primary'>" . $newsPost->views . "</span>
+            </li>
+            ";
+            }
+            ?>
+        </ul>
+    </div>
+    <div class="control-status-list">
+        <h3>Top 10 News from last 3 Months</h3>
+        <ul>
+            <?php
+                $news = Przemyslawdev\News\Models\News::take(10)->where('published_at', '>',
+            Carbon\Carbon::now()->subMonth(3))->orderBy('views','desc')->get();
+            foreach($news as $newsPost)
+            {
+            echo "
+            <li><span class='status-text'>" . $newsPost->title . "</span><span class='status-label primary'>" . $newsPost->views . "</span>
+            </li>
+            ";
+            }
+            ?>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript">
+    var labels = [];
+    var dataPie = [];
+
+    var ctx = document.getElementById('pieChart').getContext('2d');
+
+    var colors = [];
+
+    $.request('onGetCategories', {
+        success: function (data) {
+            this.success(data).done(function () {
+                $.each(data, function (index, value) {
+                    labels.push(value.name);
+                });
+                for (i = 0; i <= labels.length; i++) {
+                    colors.push(getRandColor(2));
+                }
+            });
+            $.request('onGetCategoriesNewsViews', {
+                success: function (data) {
+                    this.success(data).done(function () {
+                        $.each(data.views_totals, function (index, value) {
+                            if (!value) {
+                                value = 0;
+                            }
+                            dataPie.push(parseInt(value));
+                        });
+                        generatePieChart();
+                    });
+                }
+            });
+        }
+    });
+
+    function generatePieChart() {
+        var pieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    backgroundColor: colors,
+                    data: dataPie
+                }]
+            },
+            options: {}
+        });
+    }
+
+    function getRandColor(brightness) {
+        var rgb = [Math.random() * 256, Math.random() * 256, Math.random() * 256];
+        var mix = [brightness * 51, brightness * 51, brightness * 51];
+        var mixedrgb = [rgb[0] + mix[0], rgb[1] + mix[1], rgb[2] + mix[2]].map(function (x) {
+            return Math.round(x / 2.0)
+        })
+        return "rgb(" + mixedrgb.join(",") + ")";
+    }
+</script>

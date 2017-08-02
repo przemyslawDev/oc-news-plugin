@@ -1,0 +1,9 @@
+{% set newsPosts = __SELF__.newsPosts %}
+
+{% for post in newsPosts %}
+<p>{{ post.title }}</p>
+{% else %}
+{{  __SELF__.noPostMessage }}
+{% endfor %}
+
+{{ newsPosts.render|raw }}

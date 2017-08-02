@@ -1,0 +1,20 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: Categories
+form: $/przemyslawdev/news/models/category/fields.yaml
+modelClass: PrzemyslawDev\News\Models\Category
+
+create:
+    title: New Category
+    redirect: przemyslawdev/news/category/update/:id
+    redirectClose: przemyslawdev/news/category
+    flashSave: News has been created!
+
+update:
+    title: Edit Category
+    redirect: przemyslawdev/news/category/update/:id
+    redirectClose: przemyslawdev/news/category
+    flashSave: News updated successfully!
+    flashDelete: News has been deleted.

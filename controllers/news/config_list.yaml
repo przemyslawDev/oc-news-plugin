@@ -1,0 +1,15 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: News Posts
+list: ~/plugins/przemyslawdev/news/models/news/list_columns.yaml
+modelClass: PrzemyslawDev\News\Models\News
+recordUrl: przemyslawdev/news/news/update/:id
+
+recordsPerPage: 15
+showSetup: true
+showCheckboxes: true
+
+toolbar:
+  buttons: list_toolbar

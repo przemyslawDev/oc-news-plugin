@@ -1,0 +1,15 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    newsletter_template_count:
+        label: Newsletter templates count (max. 5)
+        description: templates count
+        type: dropdown
+        options:
+            1: 1
+            2: 2
+            3: 3
+            4: 4
+            5: 5

@@ -1,0 +1,20 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: News Posts
+form: $/przemyslawdev/news/models/news/fields.yaml
+modelClass: PrzemyslawDev\News\Models\News
+
+create:
+    title: New News
+    redirect: przemyslawdev/news/news/update/:id
+    redirectClose: przemyslawdev/news/news
+    flashSave: News has been created!
+
+update:
+    title: Edit News
+    redirect: rzemyslawdev/news/news/update/:id
+    redirectClose: przemyslawdev/news/news
+    flashSave: News updated successfully!
+    flashDelete: News has been deleted.

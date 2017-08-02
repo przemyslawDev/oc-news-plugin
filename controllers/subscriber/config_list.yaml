@@ -1,0 +1,9 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Subscribers
+list: ~/plugins/przemyslawdev/news/models/subscriber/list_columns.yaml
+modelClass: PrzemyslawDev\News\Models\Subscriber
+
+recordsPerPage: 15

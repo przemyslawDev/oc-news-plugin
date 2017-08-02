@@ -1,0 +1,13 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Categories
+list: ~/plugins/przemyslawdev/news/models/category/list_columns.yaml
+modelClass: PrzemyslawDev\News\Models\Category
+recordUrl: przemyslawdev/news/category/update/:id
+
+recordsPerPage: 15
+
+toolbar:
+  buttons: list_toolbar
