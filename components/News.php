@@ -6,6 +6,7 @@ use Backend\Facades\BackendAuth;
 use Cms\Classes\ComponentBase;
 use Event;
 use Przemyslawdev\News\Models\News as NewsPost;
+use Przemyslawdev\News\Models\Category;
 use Redirect;
 
 class News extends ComponentBase
@@ -25,8 +26,14 @@ class News extends ComponentBase
         return [
             'slug' => [
                 'title' => 'slug',
-                'description' => '',
+                'description' => 'News slug',
                 'default' => '{{ :slug }}',
+                'type' => 'string'
+            ],
+            'category_slug' => [
+                'title' => 'category_slu',
+                'description' => 'Category slug',
+                'default' => '{{ :category_slug }}',
                 'type' => 'string'
             ]
         ];
@@ -34,24 +41,33 @@ class News extends ComponentBase
 
     public function onRun()
     {
-        $this->page['news'] = $this->news = $this->loadNews();
+        $this->news = $this->loadNews();
+        if(!$this->news){
+            return Redirect::to('404');
+        }
+        $this->page['news'] = $this->news;
     }
 
     protected function loadNews()
     {
         $slug = $this->property('slug');
+        $category_slug = $this->property('category_slug');
 
-        $news = NewsPost::where('slug', $slug);
+        $category = Category::where('slug', $category_slug);
+        if($category->count() == 0)
+            return null;
 
-        if ($news->count() == 0) {
-            return Redirect::to('404');
-        }
+        $category = $category->first();
+
+        $news = NewsPost::where('slug', $slug)->category($category->id);
+
+        if ($news->count() == 0)
+            return null;
 
         $news = $news->first();
 
-        if (!BackendAuth::check()) {
+        if (!BackendAuth::check())
             Event::fire('post.view', $news);
-        }
 
         return $news;
     }
