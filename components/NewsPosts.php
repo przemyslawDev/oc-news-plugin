@@ -4,7 +4,7 @@ namespace PrzemyslawDev\News\Components;
 
 use Cms\Classes\ComponentBase;
 use Przemyslawdev\News\Models\Category;
-use Przemyslawdev\News\Models\News;
+use Przemyslawdev\News\Models\News as NewsModel;
 
 class NewsPosts extends ComponentBase
 {
@@ -100,7 +100,7 @@ class NewsPosts extends ComponentBase
 
     protected function loadNewsPosts()
     {
-        $newsPosts = News::listFrontend([
+        $newsPosts = NewsModel::listFrontend([
             'perPage' => $this->property('perPage'),
             'sortOrder' => $this->property('sortOrder'),
             'category' => $this->property('category'),
