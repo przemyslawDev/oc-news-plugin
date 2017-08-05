@@ -48,7 +48,7 @@ class NewsPosts extends ComponentBase
                 'title' => 'category',
                 'type' => 'dropdown',
                 'description' => '',
-                'default' => 0,
+                'default' => 'all',
             ],
             'featured' => [
                 'title' => 'featured',
@@ -73,12 +73,12 @@ class NewsPosts extends ComponentBase
     public function getCategoryOptions()
     {
         $categories_options = array(
-            0 => 'All'
+            'all' => 'All'
         );
         $categories = Category::all();
 
         foreach ($categories as $category) {
-            $categories_options[$category->id] = $category->name;
+            $categories_options[$category->slug] = $category->name;
         }
 
         return $categories_options;

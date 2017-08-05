@@ -62,12 +62,12 @@ class News extends Model
         extract(array_merge([
             'perPage' => 10,
             'sortOrder' => 'published_at desc',
-            'category' => 0,
+            'category' => 'all',
             'featured' => 0
         ], $options));
 
-        if ($category != 0) {
-            $query->category($category);
+        if ($category !== 'all') {
+            $query->categorySlug($category);
         }
 
         if ($featured != 0) {
@@ -93,9 +93,11 @@ class News extends Model
         return $query->paginate($perPage);
     }
 
-    public function scopeCategory($query, $value)
+    public function scopeCategorySlug($query, $value)
     {
-        return $query->where('category_id', $value);
+        return $query->whereHas('category', function($query) use ($value){
+            $query->whereSlug($value);
+        });
     }
 
     public function scopeIsPublished($query)
