@@ -20,4 +20,9 @@ class Category extends Model
         'name' => 'required|between:4,32',
         'slug' => 'required|between:4,32'
     ];
+
+    public function scopeSlug($query, $value)
+    {
+        $query->where('slug', $value);
+    }
 }

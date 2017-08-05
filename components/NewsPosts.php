@@ -10,6 +10,8 @@ class NewsPosts extends ComponentBase
 {
     public $newsPosts;
 
+    public $selectedCategory;
+
     public $noPostMessage;
 
     public function componentDetails()
@@ -66,6 +68,9 @@ class NewsPosts extends ComponentBase
 
     public function onRun()
     {
+        if(($category_slug = $this->property('category')) !== 'all') {
+            $this->selectedCategory = Category::slug($category_slug)->first();
+        }
         $this->page['newsPosts'] = $this->newsPosts = $this->loadNewsPosts();
         $this->page['noPostMessage'] = $this->noPostMessage = $this->property('noPostMessage');
     }
