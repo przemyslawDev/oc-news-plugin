@@ -19,11 +19,11 @@
         </ul>
     </div>
     <div class="control-status-list">
-        <h3>Top 10 News from last 3 Months</h3>
+        <h3>Top 10 News from last Month</h3>
         <ul>
             <?php
                 $news = Przemyslawdev\News\Models\News::take(10)->where('published_at', '>',
-            Carbon\Carbon::now()->subMonth(3))->orderBy('views','desc')->get();
+            Carbon\Carbon::now()->subMonth(1))->orderBy('views','desc')->get();
             foreach($news as $newsPost)
             {
             echo "

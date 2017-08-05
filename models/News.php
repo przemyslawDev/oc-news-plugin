@@ -38,8 +38,8 @@ class News extends Model
     ];
 
     public $rules = [
-        'title' => 'required|between:4,32',
-        'slug' => 'required|max:12',
+        'title' => 'required|unique:przemyslawdev_content_news_news|between:4,32',
+        'slug' => 'required|unique:przemyslawdev_content_news_news|max:12',
         'category' => 'required',
         'summary' => 'required',
         'content' => 'required',
