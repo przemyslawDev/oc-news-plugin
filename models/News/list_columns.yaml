@@ -11,6 +11,10 @@ columns:
         label: title
     slug:
         label: slug
+    category:
+        label: category
+        relation: category
+        select: name
     published_at:
         label: published
         type: date
