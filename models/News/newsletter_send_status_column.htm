@@ -1,0 +1,17 @@
+<?php
+
+$text = [
+    1 => 'No',
+2 => 'Pending',
+3 => 'Error',
+4 => 'Sent'
+];
+
+$class = [
+1 => 'text-warning',
+2 => 'text-info',
+3 => 'text-danger',
+4 => 'text-success'
+];
+
+echo '<span class="oc-icon-circle '.$class[$record->newsletter_send_status].'">'.$text[$record->newsletter_send_status].'</span>';

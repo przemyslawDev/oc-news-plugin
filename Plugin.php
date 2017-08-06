@@ -176,12 +176,15 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            $newsToSend = NewsModel::where('newsletter_send_status', 1)->get();
+            $newsToSend = NewsModel::where('newsletter_send_status', 2)->get();
             foreach($newsToSend as $news) {
                 $newsSender = new NewsSender($news);
-                $newsSender->sendNewsletter();
-
-                $news->newsletter_send_status = 4;
+                $status = $newsSender->sendNewsletter();
+                if($status) {
+                    $news->newsletter_send_status = 4;
+                } else {
+                    $news->newsletter_send_status = 3;
+                }
                 $news->save();
             }
         })->everyMinute();

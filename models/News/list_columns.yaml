@@ -30,7 +30,8 @@ columns:
         select: login
     newsletter_send_status:
         label: emails send status
-        type: number
+        type: partial
+        path: ~/plugins/przemyslawdev/news/models/news/newsletter_send_status_column.htm
     created_at:
         label: created
         type: date

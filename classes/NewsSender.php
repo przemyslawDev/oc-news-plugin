@@ -22,15 +22,18 @@ class NewsSender
     {
         $activeSubscribers = Subscriber::isActive();
         if ($activeSubscribers->count() == 1) {
-            $this->send($activeSubscribers->first());
+            return $this->send($activeSubscribers->first());
         } else {
             if ($activeSubscribers->count() > 1) {
                 $subscribers = $activeSubscribers->get();
                 foreach ($subscribers as $subscriber) {
-                    $this->send($subscriber);
+                    if(!$this->send($subscriber)) {
+                        return false;
+                    }
                 }
             }
         }
+        return true;
     }
 
     protected function template()
@@ -59,19 +62,26 @@ class NewsSender
 
     protected function send($subscriber)
     {
-        $vars = [
-            'post_title' => $this->news->title,
-            'post_slug' => $this->news->slug,
-            'post_category_name' => $this->news->category->name,
-            'post_summary' => $this->news->summary,
-            'post_content' => $this->news->content,
-            'post_is_featured' => $this->news->is_featured,
-            'post_image' => $this->news->image
-        ];
+        try {
+            $vars = [
+                'post_title' => $this->news->title,
+                'post_slug' => $this->news->slug,
+                'post_category_name' => $this->news->category->name,
+                'post_summary' => $this->news->summary,
+                'post_content' => $this->news->content,
+                'post_is_featured' => $this->news->is_featured,
+                'post_image' => $this->news->image
+            ];
 
-        Mail::send($this->template(), $vars, function ($message) use ($subscriber) {
-            $message->to($subscriber->email, '');
-            $message->subject($this->news->title);
-        });
+            Mail::send('przemyslawdev.news::mail.newsletter_email_1', $vars, function ($message) use ($subscriber) {
+                $message->to($subscriber->email, '');
+                $message->subject($this->news->title);
+            });
+            return true;
+        } catch (ErrorException $ex) {
+            return false;
+        } catch (Exception $ex) {
+            return false;
+        }
     }
 }
