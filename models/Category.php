@@ -23,6 +23,6 @@ class Category extends Model
 
     public function scopeSlug($query, $value)
     {
-        $query->where('slug', $value);
+        return $query->where('slug', $value);
     }
 }

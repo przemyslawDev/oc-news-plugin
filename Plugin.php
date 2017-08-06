@@ -143,6 +143,7 @@ class Plugin extends PluginBase
         return [
             'Przemyslawdev\News\Components\News' => 'news',
             'Przemyslawdev\News\Components\NewsPosts' => 'news_posts',
+            'Przemyslawdev\News\Components\Categories' => 'categories',
             'Przemyslawdev\News\Components\Subscribe' => 'subscribe'
         ];
     }
