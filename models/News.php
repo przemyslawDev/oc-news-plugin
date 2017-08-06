@@ -23,7 +23,7 @@ class News extends Model
         'content',
         'image',
         'published_at',
-        'newsletter_send'
+        'newsletter_send_status'
     ];
 
     protected $dates = ['published_at'];
@@ -43,7 +43,8 @@ class News extends Model
         'category' => 'required',
         'summary' => 'required',
         'content' => 'required',
-        'published_at' => 'required|date|after:yesterday'
+        'published_at' => 'required|date|after:yesterday',
+        'newsletter_send_status' => 'required'
     ];
 
     public static $allowedSorting = [
@@ -108,14 +109,6 @@ class News extends Model
     public function scopeIsFeatured($query, $value = 1)
     {
         return $query->where('is_featured', $value);
-    }
-
-    public function beforeSave()
-    {
-        if ($this->newsletter_send) {
-            $newsSender = new NewsSender($this);
-            $newsSender->sendNewsletter();
-        }
     }
 
     public function beforeCreate()

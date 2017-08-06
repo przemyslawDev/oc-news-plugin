@@ -52,8 +52,11 @@ secondaryTabs:
             description: featured
             type: checkbox
             default: false
-        newsletter_send:
+        newsletter_send_status:
             label: Send to subscribers
-            description: send
-            type: switch
-            default: true
+            description: newsletter_send_status
+            type: dropdown
+            options:
+                0: No
+                1: Pending
+            default: 0

@@ -15,9 +15,10 @@ class SubscriptionSender
 
     public function send()
     {
-        Mail::send('przemyslawdev.news::mail.subscription', function ($message) {
+        $vars = [];
+        Mail::send('przemyslawdev.news::mail.subscription', $vars, function ($message) {
             $message->to($this->subscriber->email, '');
-            $message->subject('Thanks for subscribe.');
+           $message->subject('Thanks for subscribe.');
         });
     }
 }

@@ -28,6 +28,9 @@ columns:
         label: author
         relation: user
         select: login
+    newsletter_send_status:
+        label: emails send status
+        type: number
     created_at:
         label: created
         type: date
