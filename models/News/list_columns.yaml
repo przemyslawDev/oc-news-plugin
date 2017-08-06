@@ -11,6 +11,10 @@ columns:
         label: title
     slug:
         label: slug
+    category:
+        label: category
+        relation: category
+        select: name
     published_at:
         label: published
         type: date
@@ -24,6 +28,10 @@ columns:
         label: author
         relation: user
         select: login
+    newsletter_send_status:
+        label: emails send status
+        type: partial
+        path: ~/plugins/przemyslawdev/news/models/news/newsletter_send_status_column.htm
     created_at:
         label: created
         type: date

@@ -13,6 +13,11 @@ class Subscriber extends Model
 
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'email',
+        'is_active'
+    ];
+
     public $rules = [
         'email' => 'required|email'
     ];

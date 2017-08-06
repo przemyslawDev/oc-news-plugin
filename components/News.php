@@ -53,13 +53,7 @@ class News extends ComponentBase
         $slug = $this->property('slug');
         $category_slug = $this->property('category_slug');
 
-        $category = Category::where('slug', $category_slug);
-        if($category->count() == 0)
-            return null;
-
-        $category = $category->first();
-
-        $news = NewsPost::where('slug', $slug)->category($category->id);
+        $news = NewsPost::where('slug', $slug)->categorySlug($category_slug);
 
         if ($news->count() == 0)
             return null;

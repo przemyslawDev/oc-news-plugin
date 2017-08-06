@@ -7,6 +7,8 @@ use Backend\Facades\Backend;
 use Db;
 use Event;
 use System\Classes\PluginBase;
+use Przemyslawdev\News\Classes\NewsSender;
+use Przemyslawdev\News\Models\News as NewsModel;
 
 class Plugin extends PluginBase
 {
@@ -169,5 +171,22 @@ class Plugin extends PluginBase
             'przemyslawdev.news::mail.newsletter_email_4' => 'Fourth newsletter email template.',
             'przemyslawdev.news::mail.newsletter_email_5' => 'Fifth newsletter email template.'
         ];
+    }
+
+    public function registerSchedule($schedule)
+    {
+        $schedule->call(function () {
+            $newsToSend = NewsModel::where('newsletter_send_status', 2)->get();
+            foreach($newsToSend as $news) {
+                $newsSender = new NewsSender($news);
+                $status = $newsSender->sendNewsletter();
+                if($status) {
+                    $news->newsletter_send_status = 4;
+                } else {
+                    $news->newsletter_send_status = 3;
+                }
+                $news->save();
+            }
+        })->everyMinute();
     }
 }
