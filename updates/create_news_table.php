@@ -22,7 +22,7 @@ class CreateNewsTable extends Migration
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->biginteger('views');
-            $table->boolean('newsletter_send');
+            $table->integer('newsletter_send_status');
             $table->timestamps();
 
             $table->foreign('category_id')->references('id')->on('przemyslawdev_content_news_categories');

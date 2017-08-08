@@ -23,7 +23,7 @@ class News extends Model
         'content',
         'image',
         'published_at',
-        'newsletter_send'
+        'newsletter_send_status'
     ];
 
     protected $dates = ['published_at'];
@@ -38,12 +38,13 @@ class News extends Model
     ];
 
     public $rules = [
-        'title' => 'required|between:4,32',
-        'slug' => 'required|max:12',
+        'title' => 'required|unique:przemyslawdev_content_news_news|between:4,32',
+        'slug' => 'required|unique:przemyslawdev_content_news_news|max:12',
         'category' => 'required',
         'summary' => 'required',
         'content' => 'required',
-        'published_at' => 'required|date|after:yesterday'
+        'published_at' => 'required|date|after:yesterday',
+        'newsletter_send_status' => 'required'
     ];
 
     public static $allowedSorting = [
@@ -62,12 +63,12 @@ class News extends Model
         extract(array_merge([
             'perPage' => 10,
             'sortOrder' => 'published_at desc',
-            'category' => 0,
+            'category' => 'all',
             'featured' => 0
         ], $options));
 
-        if ($category != 0) {
-            $query->category($category);
+        if ($category !== 'all') {
+            $query->categorySlug($category);
         }
 
         if ($featured != 0) {
@@ -93,9 +94,11 @@ class News extends Model
         return $query->paginate($perPage);
     }
 
-    public function scopeCategory($query, $value)
+    public function scopeCategorySlug($query, $value)
     {
-        return $query->where('category_id', $value);
+        return $query->whereHas('category', function($query) use ($value){
+            $query->whereSlug($value);
+        });
     }
 
     public function scopeIsPublished($query)
@@ -106,14 +109,6 @@ class News extends Model
     public function scopeIsFeatured($query, $value = 1)
     {
         return $query->where('is_featured', $value);
-    }
-
-    public function beforeSave()
-    {
-        if ($this->newsletter_send) {
-            $newsSender = new NewsSender($this);
-            $newsSender->sendNewsletter();
-        }
     }
 
     public function beforeCreate()

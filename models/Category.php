@@ -17,7 +17,12 @@ class Category extends Model
     ];
 
     public $rules = [
-        'name' => 'required|between:4,32',
-        'slug' => 'required|between:4,32'
+        'name' => 'required|unique:przemyslawdev_content_news_categories|between:4,32',
+        'slug' => 'required|unique:przemyslawdev_content_news_categories|between:4,32'
     ];
+
+    public function scopeSlug($query, $value)
+    {
+        return $query->where('slug', $value);
+    }
 }

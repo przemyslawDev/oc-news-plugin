@@ -10,6 +10,8 @@ class NewsPosts extends ComponentBase
 {
     public $newsPosts;
 
+    public $selectedCategory;
+
     public $noPostMessage;
 
     public function componentDetails()
@@ -48,7 +50,7 @@ class NewsPosts extends ComponentBase
                 'title' => 'category',
                 'type' => 'dropdown',
                 'description' => '',
-                'default' => 0,
+                'default' => 'all',
             ],
             'featured' => [
                 'title' => 'featured',
@@ -66,6 +68,9 @@ class NewsPosts extends ComponentBase
 
     public function onRun()
     {
+        if(($category_slug = $this->property('category')) !== 'all') {
+            $this->selectedCategory = Category::slug($category_slug)->first();
+        }
         $this->page['newsPosts'] = $this->newsPosts = $this->loadNewsPosts();
         $this->page['noPostMessage'] = $this->noPostMessage = $this->property('noPostMessage');
     }
@@ -73,12 +78,12 @@ class NewsPosts extends ComponentBase
     public function getCategoryOptions()
     {
         $categories_options = array(
-            0 => 'All'
+            'all' => 'All'
         );
         $categories = Category::all();
 
         foreach ($categories as $category) {
-            $categories_options[$category->id] = $category->name;
+            $categories_options[$category->slug] = $category->name;
         }
 
         return $categories_options;

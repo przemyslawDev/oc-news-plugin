@@ -1,0 +1,62 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    title:
+        label: Title
+        description: title
+    slug:
+        label: Slug
+        description: slug
+    category:
+        label: Category
+        description: category
+        type: relation
+tabs:
+    fields:
+        summary:
+            description: summary
+            type: richeditor
+            toolbarButtons: bold|italic|fontFamily|fontSize|color|align|quote|insertHR|insertLink|insertImage|insertVideo|insertAudio|insertFile|undo|redo|html
+            size: huge
+            tab: Summary
+        content:
+            description: content
+            type: richeditor
+            toolbarButtons: bold|italic|fontFamily|fontSize|color|align|quote|insertHR|insertLink|insertImage|insertVideo|insertAudio|insertFile|undo|redo|html
+            size: huge
+            tab: Content
+        tags:
+            description: tags
+            type: taglist
+            mode: relation
+            tab: Tags
+secondaryTabs:
+    defaultTab:
+    fields:
+        image:
+            label: Image
+            description: Image
+            type: mediafinder
+            mode: image
+            imageWidth: 200
+            imageHeight: 200
+        published_at:
+            label: Published_at
+            description: published_at
+            type: datepicker
+            default: now
+        is_featured:
+            label: Featured
+            description: featured
+            type: checkbox
+            default: false
+        newsletter_send_status:
+            label: Send to subscribers
+            description: newsletter_send_status
+            type: dropdown
+            options:
+                1: No
+                2: Pending
+            default: 0
