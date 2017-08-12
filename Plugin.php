@@ -121,17 +121,20 @@ class Plugin extends PluginBase
                     'news' => [
                         'label' => 'News',
                         'icon' => 'icon-file-text',
-                        'url' => Backend::url('przemyslawdev/news/news')
+                        'url' => Backend::url('przemyslawdev/news/news'),
+                        'permissions' => ['przemyslawdev.news.access_news']
                     ],
                     'subscribers' => [
                         'label' => 'Subscribers',
                         'icon' => 'icon-users',
-                        'url' => Backend::url('przemyslawdev/news/subscriber')
+                        'url' => Backend::url('przemyslawdev/news/subscriber'),
+                        'permissions' => ['przemyslawdev.news.access_subscribers']
                     ],
                     'statistics' => [
                         'label' => 'Statistics',
                         'icon' => 'icon-bar-chart',
-                        'url' => Backend::url('przemyslawdev/news/statistics')
+                        'url' => Backend::url('przemyslawdev/news/statistics'),
+                        'permissions' => ['przemyslawdev.news.access_statistics']
                     ]
                 ]
             ]
