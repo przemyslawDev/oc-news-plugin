@@ -99,7 +99,9 @@ class NewsPosts extends ComponentBase
             'updated_at asc' => 'updated asc',
             'updated_at desc' => 'updated desc',
             'published_at asc' => 'published asc',
-            'published_at desc' => 'published desc'
+            'published_at desc' => 'published desc',
+            'views asc' => 'views asc',
+            'views desc' => 'views desc'
         ];
     }
 
